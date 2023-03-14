@@ -23,6 +23,7 @@ struct PollingOfficer{
     char Password[16];
 };
 struct Candidate{
+    int candidateID;
     char FirstName[50];
     char LastName[50];
     int Votes;
@@ -31,6 +32,7 @@ int main() {
     struct Voter v[100];
     struct PollingOfficer po[3];
     struct Admin sa[1];
+    struct Candidate c[5];
     char userentry[50], userentry2[50], userentry3[50];
     int path, n, result, result2, result3;
     bool flag=true;
@@ -106,7 +108,7 @@ int main() {
                             if (result == 0) {
                                 int POadd;
                                 printf("\nYou have logged in\nPolling officer count is currently at %d."
-                                       "\n Would you like to add an officer?", POadd);
+                                       "\n Would you like to add a polling officer (1) or candidate (2)", POadd);
                                 scanf("%d",&path);
                                 if(path==1) {
                                     loginflag = true;
@@ -118,7 +120,7 @@ int main() {
                                     bool adding = false;
                                     while (!adding)
                                         for (int k = 0; k < POadd; k++) {
-                                            po[1].officerID = k;
+                                            po[1].officerID = POadd;
                                             printf("\nPlease enter the Polling officers First Name");
                                             scanf("%s", po[k].FirstName);
                                             printf("\nPlease enter the Polling officers Last Name");
@@ -130,6 +132,20 @@ int main() {
                                             if (path == 1) {
                                             } else { adding = true; }
                                         }
+                                }else if(path==2) {
+                                    int candidateadd;
+                                    candidateadd+=1;
+                                    if(candidateadd==5){
+                                        printf("You have reached the maximum number of candidates in the system.");
+                                    }else{
+                                    for (int p = 0; p < candidateadd; p++) {
+                                        c[1].candidateID = candidateadd;
+                                        printf("\nPlease enter the candidates First Name");
+                                        scanf("%s", c[p].FirstName);
+                                        printf("\nPlease enter the candidates Last Name");
+                                        scanf("%s", c[p].LastName);
+                                    }
+                                    }
                                 }
                             } else {
                                 printf("\nPassword  incorrect, please try again");
