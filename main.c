@@ -67,7 +67,7 @@ int main() {
                         printf("\n You have successfully logged in");
                         bool poSession = true;
                         while (poSession) {
-                            printf("\nPlease select option: (1) Register Voter (2) Add Candidate (3)Declare Results (4) Cancel");
+                            printf("\nPlease select option: (1) Register Voter (2) Add Candidate (3)Declare Results (4) Fix voter issue (5) Cancel");
                             scanf("%d", &path);
                             if (path == 1) {
                                 //enter voter
@@ -86,11 +86,11 @@ int main() {
                                 }
                             } else if (path == 2) {
                                 candidateadd += 1;
-                                if (candidateadd == 5) {
+                                if (candidateadd == 6) {
                                     printf("You have reached the maximum number of candidates in the system.");
                                 } else {
                                     for (p; p < candidateadd; p++) {
-                                        c[1].candidateID = candidateadd;
+                                        c[p].candidateID = p+1;
                                         printf("\nPlease enter the candidates First Name");
                                         scanf("%s", c[p].FirstName);
                                         printf("\nPlease enter the candidates Last Name");
@@ -117,20 +117,38 @@ int main() {
                                                 mostvotes = votes;
                                                 winner = q;
                                             }
-                                        } else if (q == times + 1) {
+                                        } else {
                                             printf("\nThe results of this election are as follows"
                                                    "\n------------------------------------------"
                                                    "\nWinner of the election is %s %s with %d votes",
                                                    c[winner].FirstName,
                                                    c[winner].LastName, c[winner].Votes);
-                                        } else {
                                             printf("\nEnd of Session, thank you for your service.");
                                             l = 4;
                                             break;
                                         }
                                     }
                                 }
-                            } else {
+                            }else if(path==4){
+                                printf("\nPlease enter the registration number for the voter");
+                                scanf("%d", &path);
+                                for(int y=0;y<numofVoters;y++){
+                                    if(path==v[y].RegistrationNumber){
+                                        printf("\nPlease enter voter's First Name");
+                                        scanf("%s", v[y].FirstName);
+                                        printf("\nPlease enter voter's Last Name");
+                                        scanf("%s", v[y].LastName);
+                                        printf("\nPlease enter voter's Date of Birth (as yyyymmdd)");
+                                        scanf("%d", &v[y].DoB);
+                                        v[j].hasVoted=false;
+                                    }else if(y==numofVoters-1){
+                                        printf("There is no voter with that registration number.  Please add them from menu by pressing (1)");
+                                    }else{
+
+                                    }
+                                }
+
+                            }else {
                                 poSession = false;
                                 l = 4;
                                 break;
@@ -225,6 +243,7 @@ int main() {
                             scanf("%d",&path);
                             c[path-1].Votes+=1;
                             v[i].hasVoted=true;
+                            break;
                             }else{
                             printf("\nThere has been a mistake as your age is incorrect."
                                    "Please see polling officer to confirm your date of birth.");
@@ -232,6 +251,7 @@ int main() {
                         }else{
                         printf("\nThere has been a mistake as your age is incorrect."
                                "Please see polling officer to confirm your date of birth.");
+                                break;
                     }
                     }else if(entry==v[i].RegistrationNumber && v[i].hasVoted==true) {
                     printf("\nA vote has already been cast by this user."
